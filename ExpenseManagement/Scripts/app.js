@@ -4,7 +4,7 @@
     
     $.ajax({
         type: "POST",
-        url: "http://" + config.baseUrl + "/ExpenseManager/UserExpenses/GetAllExpenses",
+        url: "/ExpenseManager/UserExpenses/GetAllExpenses",
         dataType: "json",
         success: function(response) {
             console.log("reponse was succesfull");
