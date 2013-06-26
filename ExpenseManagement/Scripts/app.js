@@ -1,8 +1,10 @@
 ﻿$(document).ready(function() {
     console.log("application initialized");
+    console.log(config.baseUrl);
+    
     $.ajax({
         type: "POST",
-        url: "http://pu-sdapalek.zs.local/ExpenseManager/UserExpenses/GetAllExpenses",
+        url: "http://" + config.baseUrl + "/ExpenseManager/UserExpenses/GetAllExpenses",
         dataType: "json",
         success: function(response) {
             console.log("reponse was succesfull");

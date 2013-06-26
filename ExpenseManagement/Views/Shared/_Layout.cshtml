@@ -45,5 +45,10 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/applicationScripts")
         @RenderSection("scripts", required: false)
+        <script type="text/javascript" id="GlobalConfigurationScript">
+             config = {
+                baseUrl : "@Request.Url.Host"
+            };
+        </script>
     </body>
 </html>
