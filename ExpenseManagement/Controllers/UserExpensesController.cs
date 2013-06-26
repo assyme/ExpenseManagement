@@ -112,7 +112,7 @@ namespace ExpenseManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetAllExpenses()
+        public JsonResult GetAllExpenses()
         {
             return Json(db.Expenses.ToList());
         }
