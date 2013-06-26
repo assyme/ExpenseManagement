@@ -111,6 +111,12 @@ namespace ExpenseManagement.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult GetAllExpenses()
+        {
+            return Json(db.Expenses.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
