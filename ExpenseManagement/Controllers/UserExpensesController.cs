@@ -18,7 +18,7 @@ namespace ExpenseManagement.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Expenses.ToList());
+            return View(db.Expenses.OrderByDescending(x => x.Id).ToList());
         }
 
         //
@@ -114,7 +114,7 @@ namespace ExpenseManagement.Controllers
         [HttpPost]
         public JsonResult GetAllExpenses()
         {
-            return Json(db.Expenses.ToList());
+            return Json(db.Expenses.OrderByDescending(x => x.Id).ToList());
         }
 
         protected override void Dispose(bool disposing)

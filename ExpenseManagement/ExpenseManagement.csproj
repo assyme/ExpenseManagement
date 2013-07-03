@@ -15,7 +15,7 @@
     <AssemblyName>ExpenseManagement</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -229,7 +229,21 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\DEV.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\css\bootstrap-responsive.min.css" />
+    <Content Include="Mobile\PhoneGap\assets\www\css\bootstrap.min.css" />
+    <Content Include="Mobile\PhoneGap\assets\www\img\cordova.png" />
+    <Content Include="Mobile\PhoneGap\assets\www\img\glyphicons-halflings.png" />
+    <Content Include="Mobile\PhoneGap\assets\www\img\logo.png" />
+    <Content Include="Mobile\PhoneGap\assets\www\index.html" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\appmodel.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\bootstrap.min.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\cordova.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\core.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\handlebars.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\index.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\jquery-1.10.1.min.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -310,11 +324,12 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53973</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53681/</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
