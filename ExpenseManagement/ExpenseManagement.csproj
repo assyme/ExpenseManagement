@@ -154,15 +154,6 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="ZSAssociates.IdentityManager.Common">
-      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ZSAssociates.IdentityManager.Consumables">
-      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Consumables.dll</HintPath>
-    </Reference>
-    <Reference Include="ZSAssociates.IdentityManager.Consumables.Configuration">
-      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Consumables.Configuration.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
