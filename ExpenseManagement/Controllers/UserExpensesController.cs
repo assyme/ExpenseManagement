@@ -118,6 +118,7 @@ namespace ExpenseManagement.Controllers
         {
             return Json(db.Expenses.OrderByDescending(x => x.Id).ToList());
         }
+
         [Authorize]
         [HttpPost]
         public JsonResult GetUserExpenses()

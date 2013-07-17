@@ -24,16 +24,12 @@ var MainApp = function () {
         if (deviceInfo.IsConnected) {
             //Update the wifi icon
             $('#wifiStatus').addClass("icon-signal");
-            var servDac = new ServerDAC();
-            servDac.Read({
-                url: "UserExpenses/GetAllExpenses",
-                objectToRead: expenses
-            }).done(function (response) {
+            ZS.Communication.UserExpenses.GetUserExpenses().done(function (response) {
                 console.log("data recieved from server");
                 console.log(response);
                 var newExpensesCount = expenses.ProcessNewServerData(response);
                 $('#badgeExpense').html(newExpensesCount);
-            }).fail(function (obj,resp) {
+            }).done(function (obj,resp,err) {
                 console.log("request failed" + resp);
             });
         } else {
@@ -59,9 +55,11 @@ var MainApp = function () {
             $('div#contents').html(this.el);
         });
 
-        ZS.Communication.UserExpenses.GetUserAuthentication("apalekar", "monkey").done(function(resposne) {
+        ZS.Communication.UserExpenses.GetUserAuthentication("nothing", "nothing").done(function(resposne) {
             console.log(resposne);
         });
+
+
 
         fetchNewDataFromServer();
         $('ul.nav li').on('click', function () {

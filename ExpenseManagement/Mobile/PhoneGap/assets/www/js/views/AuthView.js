@@ -22,13 +22,9 @@
                 console.log('Attempting authentication!');
                 var u = $('#txtUsername', elm).val();
                 var p = $('#txtPassword', elm).val();
-                var serverDac = new ServerDAC();
-                serverDac.Read({
-                    url: "UserExpenses/GetAllExpenses",
-                    objectToRead: {},
-                    args: {userName:u,password:p}
-                }).done(function() {
+                ZS.Communication.UserExpenses.GetUserAuthentication(u,p).done(function(response) {
                     //Save this auth information into the local store. 
+                    console.log(response);
                 });
             });
         }

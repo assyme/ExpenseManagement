@@ -15,7 +15,11 @@ ZS.Communication.UserExpenses = function() {
           });
       },
       GetUserExpenses : function() {
-          throw "will be implemented after auth";
+          return $.ajax({
+              url: rooturl + "UserExpenses/GetUserExpenses",
+              dataType: "JSON",
+              type: "POST"
+          });
       },
       GetUserAuthentication : function(user,pwd) {
           return $.ajax({
