@@ -215,4 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 
 #Phonegap assets
-Mobile/
+Mobile/Phonegap/assets/.gitignore
