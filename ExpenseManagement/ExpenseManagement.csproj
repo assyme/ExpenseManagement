@@ -154,6 +154,15 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="ZSAssociates.IdentityManager.Common">
+      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ZSAssociates.IdentityManager.Consumables">
+      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Consumables.dll</HintPath>
+    </Reference>
+    <Reference Include="ZSAssociates.IdentityManager.Consumables.Configuration">
+      <HintPath>..\..\..\..\..\Work\svn\ICFieldView\trunk\ICFieldView\bin\ZSAssociates.IdentityManager.Consumables.Configuration.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -168,6 +177,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307170930235_Initial.cs" />
+    <Compile Include="Migrations\201307170930235_Initial.Designer.cs">
+      <DependentUpon>201307170930235_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201307170939106_AddUsernameMig.cs" />
+    <Compile Include="Migrations\201307170939106_AddUsernameMig.Designer.cs">
+      <DependentUpon>201307170939106_AddUsernameMig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,19 +249,27 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\DEV.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\config.xml" />
     <Content Include="Mobile\PhoneGap\assets\www\css\bootstrap-responsive.min.css" />
     <Content Include="Mobile\PhoneGap\assets\www\css\bootstrap.min.css" />
     <Content Include="Mobile\PhoneGap\assets\www\img\cordova.png" />
     <Content Include="Mobile\PhoneGap\assets\www\img\glyphicons-halflings.png" />
     <Content Include="Mobile\PhoneGap\assets\www\img\logo.png" />
     <Content Include="Mobile\PhoneGap\assets\www\index.html" />
-    <Content Include="Mobile\PhoneGap\assets\www\js\appmodel.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\controllers\communication.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\controllers\filestore.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\controllers\SqlStore.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\models\appmodel.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\views\AuthView.js" />
     <Content Include="Mobile\PhoneGap\assets\www\js\bootstrap.min.js" />
-    <Content Include="Mobile\PhoneGap\assets\www\js\cordova.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\cordova.js" />
     <Content Include="Mobile\PhoneGap\assets\www\js\core.js" />
     <Content Include="Mobile\PhoneGap\assets\www\js\handlebars.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\views\HomeView.js" />
     <Content Include="Mobile\PhoneGap\assets\www\js\index.js" />
     <Content Include="Mobile\PhoneGap\assets\www\js\jquery-1.10.1.min.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\views\NewExpenseView.js" />
+    <Content Include="Mobile\PhoneGap\assets\www\js\controllers\store.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -259,7 +285,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -306,9 +334,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ControllersApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201307170930235_Initial.resx">
+      <DependentUpon>201307170930235_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307170939106_AddUsernameMig.resx">
+      <DependentUpon>201307170939106_AddUsernameMig.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

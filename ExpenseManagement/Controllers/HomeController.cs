@@ -11,7 +11,6 @@ namespace ExpenseManagement.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View();
         }
 
@@ -21,7 +20,7 @@ namespace ExpenseManagement.Controllers
 
             return View();
         }
-
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

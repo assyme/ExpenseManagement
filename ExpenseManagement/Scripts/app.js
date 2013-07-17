@@ -1,4 +1,4 @@
-﻿$(document).ready(function() {
+﻿$(document).ready(function () {
     console.log("application initialized");
     console.log(config.baseUrl);
     var addUri = "";
@@ -7,11 +7,29 @@
     }
     $.ajax({
         type: "POST",
-        url: addUri +  "/UserExpenses/GetAllExpenses",
+        url: addUri + "/UserExpenses/GetAllExpenses",
         dataType: "json",
-        success: function(response) {
+        data: {
+            
+        },
+        success: function (response) {
             console.log("reponse was succesfull");
             console.log(response);
         }
     });
+    
+//    $.ajax({
+//        type: "POST",
+//        url: addUri + "/Account/MobileLogin",
+//        dataType: "json",
+//        data: {
+//            UserName: "apalekar",
+//            Password: "monkey",
+//            RememberMe:false
+//        },
+//        success: function (response) {
+//            console.log("reponse was succesfull");
+//            console.log(response);
+//        }
+//    });
 });

@@ -45,6 +45,20 @@ namespace ExpenseManagement.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult MobileLogin(LoginModel model)
+        {
+            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            {
+                return Json(new {success = "true"});
+            }
+            else
+            {
+                return Json(new {success = "false"});
+            }
+        }
+
         //
         // POST: /Account/LogOff
 

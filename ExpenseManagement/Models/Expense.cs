@@ -12,6 +12,7 @@ namespace ExpenseManagement.Models
         public string Name { get; set; }
         public string Category { get; set; }
         public double Amount { get; set; }
+        public string Username { get; set; }
     }
 
     public class ExpenseDBContext : DbContext

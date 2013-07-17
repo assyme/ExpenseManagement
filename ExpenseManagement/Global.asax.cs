@@ -24,5 +24,10 @@ namespace ExpenseManagement
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
         }
+
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            
+        }
     }
 }

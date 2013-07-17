@@ -9,6 +9,7 @@ using ExpenseManagement.Models;
 
 namespace ExpenseManagement.Controllers
 {
+    
     public class UserExpensesController : Controller
     {
         private ExpenseDBContext db = new ExpenseDBContext();
@@ -36,7 +37,7 @@ namespace ExpenseManagement.Controllers
 
         //
         // GET: /UserExpenses/Create
-
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -44,12 +45,13 @@ namespace ExpenseManagement.Controllers
 
         //
         // POST: /UserExpenses/Create
-
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Expense expense)
         {
             if (ModelState.IsValid)
             {
+                expense.Username = User.Identity.Name;
                 db.Expenses.Add(expense);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -115,6 +117,12 @@ namespace ExpenseManagement.Controllers
         public JsonResult GetAllExpenses()
         {
             return Json(db.Expenses.OrderByDescending(x => x.Id).ToList());
+        }
+        [Authorize]
+        [HttpPost]
+        public JsonResult GetUserExpenses()
+        {
+            return Json(db.Expenses.Where(x => x.Username == User.Identity.Name).OrderByDescending(x => x.Id).ToList());
         }
 
         protected override void Dispose(bool disposing)
