@@ -22,9 +22,14 @@
                 console.log('Attempting authentication!');
                 var u = $('#txtUsername', elm).val();
                 var p = $('#txtPassword', elm).val();
-                ZS.Communication.UserExpenses.GetUserAuthentication(u,p).done(function(response) {
+                ZS.Communication.UserExpenses.GetUserAuthentication(u,p).done(function(response,responseText,jqXHR) {
                     //Save this auth information into the local store. 
-                    console.log(response);
+                    console.log("Authentication.");
+                    console.log(response.success);
+                    console.log(jqXHR.getAllResponseHeaders());
+                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
+                }).always(function(response, responseText, jqXHR) {
+                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
                 });
             });
         }

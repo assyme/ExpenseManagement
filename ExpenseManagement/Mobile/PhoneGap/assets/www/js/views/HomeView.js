@@ -1,4 +1,4 @@
-﻿var ZS = ZS || {};
+var ZS = ZS || {};
 
 ZS.Views = ZS.Views || {};
 

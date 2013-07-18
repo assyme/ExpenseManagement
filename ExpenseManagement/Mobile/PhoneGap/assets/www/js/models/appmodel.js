@@ -12,7 +12,7 @@ ZS.model.expenseCollection = ZS.model.expenseCollection || function () {
 
     //constructor
     var initiliaze = function() {
-        storage = new ZS.Storage.SqlStore.ExpenseRepository(self.SaveKey);
+        storage = new ZS.Storage.LocalStorage(self.SaveKey);
     };
 
     this.Save = function() {

@@ -1,4 +1,4 @@
-﻿/* This structure does not work ripple. Google for more details. */
+/* This structure does not work ripple. Google for more details. */
 
 var ZS = ZS || {};
 
@@ -8,7 +8,7 @@ ZS.Storage.FileStorage = function (key) {
     var self = this;
     self.key = key;
 
-   
+
 
 
     var addSampleData = function () {
@@ -24,36 +24,36 @@ ZS.Storage.FileStorage = function (key) {
     //Public methods. 
     self.Save = function (objectToSave) {
         var dfd = $.Deferred();
-        window.webkitStorageInfo.requestQuota(1, 1024 * 1024, function(granted) { // Had to do this for ripple under chrome. else you dont need this. 
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, granted, function (fs) {
-                //received a file system here.
-                var fileName = self.key + ".txt"; // Can make it a dat file as well. 
-                fs.root.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
-                    //Got file entry. 
-                    fileEntry.createWriter(function (writer) {
-                        writer.write(JSON.stringify(objectToSave));
-                        console.log("success");
-                        dfd.resolveWith(self, [objectToSave]);
-                    }, function (evt) {
-                        console.log("could not create a file writer");
-                        dfd.rejectWith(self, [evt.target.error.code]);
-                    });
+        //window.webkitStorageInfo.requestQuota(1, 1024 * 1024, function(granted) { // Had to do this for ripple under chrome. else you dont need this. 
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+            //received a file system here.
+            var fileName = self.key + ".txt"; // Can make it a dat file as well. 
+            fs.root.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
+                //Got file entry. 
+                fileEntry.createWriter(function (writer) {
+                    writer.write(JSON.stringify(objectToSave));
+                    console.log("success");
+                    dfd.resolveWith(self, [objectToSave]);
                 }, function (evt) {
-                    //Error in getting file.
-                    console.log("cannot get file");
-                    console.log(evt.target.error.code);
+                    console.log("could not create a file writer");
                     dfd.rejectWith(self, [evt.target.error.code]);
                 });
             }, function (evt) {
-                //Error in receiving the file system.
-                console.log("error in getting a file system. ");
+                //Error in getting file.
+                console.log("cannot get file");
                 console.log(evt.target.error.code);
                 dfd.rejectWith(self, [evt.target.error.code]);
             });
-        }, function() {
-            console.log("error");
+        }, function (evt) {
+            //Error in receiving the file system.
+            console.log("error in getting a file system. ");
+            console.log(evt.target.error.code);
+            dfd.rejectWith(self, [evt.target.error.code]);
         });
-        
+        //}, function() {
+        //    console.log("error");
+        //};
+
         return dfd.promise();
     };
     self.Read = function () {

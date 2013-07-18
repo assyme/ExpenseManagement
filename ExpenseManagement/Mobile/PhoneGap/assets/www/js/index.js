@@ -24,13 +24,13 @@ var MainApp = function () {
         if (deviceInfo.IsConnected) {
             //Update the wifi icon
             $('#wifiStatus').addClass("icon-signal");
-            ZS.Communication.UserExpenses.GetUserExpenses().done(function (response) {
+            ZS.Communication.UserExpenses.GetUserExpenses().done(function (data,textStatus,jqXHR) {
                 console.log("data recieved from server");
-                console.log(response);
-                var newExpensesCount = expenses.ProcessNewServerData(response);
+                console.log(data);
+                var newExpensesCount = expenses.ProcessNewServerData(data);
                 $('#badgeExpense').html(newExpensesCount);
-            }).done(function (obj,resp,err) {
-                console.log("request failed" + resp);
+            }).fail(function (jqXHR,responseText,errorThrown) {
+                console.log("request failed" + responseText);
             });
         } else {
             $('#wifiStatus').removeClass("icon-signal");
