@@ -65,7 +65,7 @@ var MainApp = function () {
         $('ul.nav li').on('click', function () {
             $('li.active').removeClass('active');
             $(this).addClass('active');
-            fetchNewDataFromServer();
+            //fetchNewDataFromServer();
         });
 
         $('#navNewExpense').on('click', function () {
@@ -73,17 +73,19 @@ var MainApp = function () {
             view.Render().done(function() {
                 $('div#contents').html(this.el);
             });
+            fetchNewDataFromServer();
         });
 
         $('li#navCurrentExpenses').on('click', function () {
             homeView.Render().done(function() {
                 $('div#contents').html(this.el);
             });
+            fetchNewDataFromServer();
         });
 
 
         $('li#navAuth').on('click', function() {
-            var aView = new AuthView();
+            var aView = new ZS.Views.AuthView();
             $('div#contents').html(aView.Render().elm);
         });
 

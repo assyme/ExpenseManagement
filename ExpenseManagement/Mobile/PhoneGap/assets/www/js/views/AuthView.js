@@ -1,42 +1,47 @@
-﻿var AuthView = function() {
-    this.elm = null;
+﻿var ZS = ZS || {};
+
+ZS.Views = ZS.Views || {};
+
+ZS.Views.AuthView = function () {
+    var self = this;
+    self.elm = null;
+    
 
     this.Initialize = function () {
         //Constructor
-        this.elm = $('<div/>');
+        self.elm = $('<div/>');
+        self.elm.on("click", "#btnLogin", function() {
+            console.log('Attempting authentication!');
+            var u = $('#txtUsername', self.elm).val();
+            var p = $('#txtPassword', self.elm).val();
+            ZS.Communication.UserExpenses.GetUserAuthentication(u, p).done(function (response, responseText, jqXHR) {
+                //Save this auth information into the local store. 
+                console.log("Authentication.");
+                console.log(response.success);
+                console.log(jqXHR.getAllResponseHeaders());
+                //console.log(jqXHR.getResponseHeader('Set-Cookie'));
+                if (response.success == "true") {
+                    //navigate to main page. 
+                    $('#navCurrentExpenses').click();
+                } else {
+                    self.elm.append("<p>Wrong user name or password. Try again!</p>");
+                }
+            }).always(function (response, responseText, jqXHR) {
+                console.log(jqXHR.getResponseHeader('Set-Cookie'));
+            });
+        });
     };
 
 
     this.Render = function() {
-        var htmlContent = AuthView.template();
+        var htmlContent = ZS.Views.AuthView.template();
         this.elm.html(htmlContent);
-        bindEvents(this.elm);
         return this;
     };
 
-    var bindEvents = function(elm) {
-        if (elm == null) {
-            return;
-        } else {
-            $('#btnLogin', elm).on('click', function() {
-                console.log('Attempting authentication!');
-                var u = $('#txtUsername', elm).val();
-                var p = $('#txtPassword', elm).val();
-                ZS.Communication.UserExpenses.GetUserAuthentication(u,p).done(function(response,responseText,jqXHR) {
-                    //Save this auth information into the local store. 
-                    console.log("Authentication.");
-                    console.log(response.success);
-                    console.log(jqXHR.getAllResponseHeaders());
-                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                }).always(function(response, responseText, jqXHR) {
-                    console.log(jqXHR.getResponseHeader('Set-Cookie'));
-                });
-            });
-        }
-    };
 
     //Call the constructor when page loads
     this.Initialize();
 };
 
-AuthView.template = Handlebars.compile($('#authTemplate').html());
+ZS.Views.AuthView.template = Handlebars.compile($('#authTemplate').html());
