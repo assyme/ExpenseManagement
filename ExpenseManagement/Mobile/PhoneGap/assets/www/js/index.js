@@ -36,7 +36,13 @@ var MainApp = function () {
         //Load Commons
         ZS.Common.Options = new ZS.Model.Options();
         ZS.Common.Expenses = new ZS.Model.ExpenseCollection();
-
+        ZS.Communication.UserExpenses.IsAlive().done(function() {
+            ZS.Common.Online = true;
+            $('#wifiStatus').addClass("icon-signal");
+        }).fail(function() {
+            ZS.Common.Online = false;
+            $('#wifiStatus').removeClass("icon-signal")
+        });
         //Fill device details. 
         deviceInfo = new ZS.Model.DeviceInfo();
        

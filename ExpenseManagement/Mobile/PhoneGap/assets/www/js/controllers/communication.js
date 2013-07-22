@@ -1,11 +1,11 @@
-﻿var ZS = ZS || {};
+var ZS = ZS || {};
 
 ZS.Communication = ZS.Communication || {};
 
 ZS.Communication.UserExpenses = function() {
     var self = this;
-    //var rooturl = "http://splitexpense.apphb.com/";
-    var rooturl = "http://pu-sdapalek.zs.local/ExpenseManager/";
+    var rooturl = "http://splitexpense.apphb.com/";
+    //var rooturl = "http://pu-sdapalek.zs.local/ExpenseManager/";
 
     $(document).ajaxSend(function(event,request,settings) {
         request.setRequestHeader("Requested-With", "XMLHttpRequest");
@@ -43,6 +43,13 @@ ZS.Communication.UserExpenses = function() {
                   Password: pwd,
                   RememberMe: rem
               },
+          });
+      },
+      IsAlive : function() {
+          return $.ajax({
+              url: rooturl + "Home/IsAlive",
+              type: "POST",
+              dataType : "JSON"
           });
       }
     };

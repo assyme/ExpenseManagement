@@ -27,5 +27,11 @@ namespace ExpenseManagement.Controllers
 
             return View();
         }
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult IsAlive()
+        {
+            return Json(new {Success = "true"});
+        }
     }
 }
