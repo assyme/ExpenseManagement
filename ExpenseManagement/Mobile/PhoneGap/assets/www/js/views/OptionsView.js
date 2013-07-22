@@ -9,7 +9,10 @@ ZS.Views.Options = function() {
     //bind events. 
     self.elm.on('click', '#btnSaveOptions', function() {
         ZS.Common.Options.option.StorageLocation = $('#sltLocalStore').val();
-        ZS.Common.Options.Save();
+        ZS.Common.Options.Save().done(function() {
+            ZS.MainApp.onDeviceReady();
+        });
+        
     });
     return {
         Render : function() {

@@ -1,14 +1,13 @@
 var ZS = ZS || {};
 ZS.Common = ZS.Common || {};
 
-var MainApp = function () {
-    var expenses;
-    
+ZS.MainApp = new function () {
+    var self = this;
     
     // Application Constructor
     this.initialize = function () {
         console.log("binding device ready events");
-        document.addEventListener("deviceready", onDeviceReady, true);
+        document.addEventListener("deviceready", self.onDeviceReady, true);
     };
 
     var fetchNewDataFromServer = function() {
@@ -28,7 +27,7 @@ var MainApp = function () {
         }
     };
 
-    var onDeviceReady = function () {
+     self.onDeviceReady = function () {
 
         //dac.Read(expenses);
         //window.navigator.notification.alert("Device Ready");
