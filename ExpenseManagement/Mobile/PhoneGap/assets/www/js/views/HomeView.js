@@ -8,19 +8,21 @@ ZS.Views.HomeView = function () {
     this.el = null;
     var initialize = function () {
         //Defining a div wrapper for a view to display elements and bind events on. 
-        expCollection = new ZS.model.expenseCollection();
-        
         self.el = $('<div/>');
     };
 
     this.Render = function () {
         //Call the dal (Data Access Layer) to get expenses and render them into the div wrapper
         var def = $.Deferred();
-        expCollection.Load().done(function(exp) {
+        ZS.Common.Expenses.Load().done(function(exp) {
             //When read is done. 
-            var renderedText = ZS.Views.HomeView.ExpenseListTemplate(exp);
-            self.el.html(renderedText);
-            def.resolveWith(self, [renderedText]);
+            if (exp.length) {
+                var renderedText = ZS.Views.HomeView.ExpenseListTemplate(exp);
+                self.el.html(renderedText);
+            } else {
+                self.el.html(ZS.Views.HomeView.EmptyExpenseListTemplate());
+            }
+            def.resolveWith(self, [exp]);
         });
         def.done(bindEvents);
         return def.promise();
@@ -32,7 +34,7 @@ ZS.Views.HomeView = function () {
         } else {
             $('#btnDelete', self.el).on('click', function () {
                 var id = $(this).parent('.well').attr('data');
-                expCollection.RemoveExpense(id);
+                ZS.Common.Expenses.RemoveExpense(id);
                 $(this).parent('.well').remove();
             });
         }
@@ -42,3 +44,4 @@ ZS.Views.HomeView = function () {
 
 
 ZS.Views.HomeView.ExpenseListTemplate = Handlebars.compile($('#ExpenseListTemplate').html());
+ZS.Views.HomeView.EmptyExpenseListTemplate = Handlebars.compile($('#EmptyExpenseListTemplate').html());

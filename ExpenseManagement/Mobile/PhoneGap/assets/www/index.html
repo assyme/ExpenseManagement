@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <title>Hello World</title>
-    
+
 </head>
 <body>
 
@@ -18,9 +18,11 @@
                 <a class="brand" href="#">Expense Management</a>
                 <ul class="nav">
                     <li id="navCurrentExpenses" class="active"><a href="#">My Expenses</a></li>
-                    <li id="navNewExpense"><a href="#"><i class="icon-plus"></i> Expense</a></li>
-                    <li id="navSync"><a href="#"> <span id="badgeExpense" class="badge badge-success"></span> Sync <i id="wifiStatus" class=""></i></a></li>
+                    <li id="navNewExpense"><a href="#"><i class="icon-plus"></i>Expense</a></li>
+                    <li id="navSync"><a href="#"><span id="badgeExpense" class="badge badge-success"></span>Sync <i id="wifiStatus" class=""></i></a></li>
                     <li id="navAuth"><a href="#">Log in</a></li>
+                    <li id="navOptions"><a href="#">Options</a></li>
+
                 </ul>
             </div>
         </div>
@@ -39,63 +41,98 @@
 
 
     <script id="newExpenseTemplate" type="text/x-handlebars-template">
-            <fieldset>
-                            <legend>Add a new expense</legend>
-                            <label>Spent on:</label>
-                            <input type="text" placeholder="Where did the money go?" id="txtName">
-                            <label>Amount :</label>
-                            <input type="text" placeholder="how much" id="txtAmount">
-                            <label>Category :</label>
-                            <input type="text" placeholder="Category.." id="txtCategory">
-                            <p><button type="submit" class="btn btn-success" id="btnSave">Save</button><p>
-            </fieldset>
-        </script>
-    
+        <fieldset class="text-center">
+            <legend>Add a new expense</legend>
+            <label>Spent on:</label>
+            <input type="text" placeholder="Where did the money go?" id="txtName">
+            <label>Amount :</label>
+            <input type="text" placeholder="how much" id="txtAmount">
+            <label>Category :</label>
+            <input type="text" placeholder="Category.." id="txtCategory">
+            <p>
+                <button type="submit" class="btn btn-success" id="btnSave">Save</button>
+            <p>
+        </fieldset>
+    </script>
+
     <script id="ExpenseListTemplate" type="text/x-handlebars-template">
-	    {{#.}}    
+        {{#.}}    
         <div class="well well-small" data="{{Id}}" id="div_expense_{{Id}}">
-                <div class="page-header">
-                    
-                    <h3> ${{Amount}} on <small>{{Name}}:{{Category}}</small> {{#if AddedOnDevice}} <span class="badge badge-success">New</span>{{/if}} </h1>
-                </div>
-                <button type="submit" class="btn btn-success" id="btnSync">Edit</button>
-                <button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
-	        </div>
+            <div class="page-header">
+
+                <h3>${{Amount}} on <small>{{Name}}:{{Category}}</small> {{#if AddedOnDevice}} <span class="badge badge-success">New</span>
+                {{/if}} </h1>
+            </div>
+            <button type="submit" class="btn btn-success" id="btnSync">Edit</button>
+            <button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
+        </div>
         {{/.}}
+    </script>
+    <script id="EmptyExpenseListTemplate" type="text/x-handlebars-template">
+        <div class="text-center"><span class="label label-info">No expenses added yet. Start adding new expenses!</span></div>
     </script>
 
     <script id="footerTemplate" type="text/x-handlebars-template">
-        	<div>
-        		<p>Connection type : {{Connection}}</p>
-        	<div>
-    </script>
-    
-    <script id="authTemplate" type="text/x-handlebars-template">
         <div>
-            <p>User name: <input id='txtUsername' type="text" /> </p>
-            <p>Password: <input id='txtPassword' type='text' /> </p>
-            <p>Ask Again:</p>
-            <button type="submit" class="btn btn-success" id='btnLogin'>Log in!</button>
-        <div>
+            <p>Connection type : {{Connection}}</p>
+            <div>
     </script>
 
-    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/handlebars.js"></script>
+    <script id="authTemplate" type="text/x-handlebars-template">
+        <form class="form-signin" action="#">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input id='txtUsername' class="input-block-level" type="text" placeholder="user name" />
+            <input id='txtPassword' type='password' class="input-block-level" placeholder="password" />
+            <label class="checkbox">
+                <input type="checkbox" value="remember" id="cbRemember" />
+                Remember Me
+            </label>
+            <button class="btn btn-large btn-primary" id="btnLogin" type="button">Sign in</button>
+        </form>
+    </script>
+
+    <script id="optionsTemplate" type="text/x-handlebars-template">
+        <fieldset>
+            <legend>Options</legend>
+            <label>Choose Storage Location:</label>
+            <select id="sltLocalStore">
+                {{#select StorageLocation }}
+                <option value="0">Local Storage</option>
+                <option value="1">File Storage</option>
+                <option value="2">Sql Storage</option>
+                {{/select}}
+            </select>
+
+            <p>
+                <button type="submit" class="btn btn-success" id="btnSaveOptions">Save</button>
+            <p>
+        </fieldset>
+    </script>
+
+    <script type="text/javascript" src="js/lib/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/handlebars.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/core.js"></script>
-    <script type="text/javascript" src="js/models/appmodel.js"></script>
+
+
     <script type="text/javascript" src="js/controllers/store.js"></script>
     <script type="text/javascript" src="js/controllers/filestore.js"></script>
     <script type="text/javascript" src="js/controllers/SqlStore.js"></script>
     <script type="text/javascript" src="js/controllers/communication.js"></script>
 
-    
+    <script type="text/javascript" src="js/models/appmodel.js"></script>
+    <script type="text/javascript" src="js/models/optionsmodel.js"></script>
+    <script type="text/javascript" src="js/models/device.js"></script>
+    <script type="text/javascript" src="js/models/credentials.js"></script>
+
+
     <!--Add views after models -->
     <script type="text/javascript" src="js/views/AuthView.js"></script>
     <script type="text/javascript" src="js/views/HomeView.js"></script>
     <script type="text/javascript" src="js/views/NewExpenseView.js"></script>
-    
+    <script type="text/javascript" src="js/views/OptionsView.js"></script>
+
+
 
 
     <script type="text/javascript">

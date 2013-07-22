@@ -1,4 +1,4 @@
-﻿var ZS = ZS || {};
+var ZS = ZS || {};
 
 ZS.Views = ZS.Views || {};
 
@@ -14,7 +14,8 @@ ZS.Views.AuthView = function () {
             console.log('Attempting authentication!');
             var u = $('#txtUsername', self.elm).val();
             var p = $('#txtPassword', self.elm).val();
-            ZS.Communication.UserExpenses.GetUserAuthentication(u, p).done(function (response, responseText, jqXHR) {
+            var r = $('#cbRemember', self.elm).is("checked");
+            ZS.Communication.UserExpenses.GetUserAuthentication(u, p,r).done(function (response, responseText, jqXHR) {
                 //Save this auth information into the local store. 
                 console.log("Authentication.");
                 console.log(response.success);
@@ -22,7 +23,12 @@ ZS.Views.AuthView = function () {
                 //console.log(jqXHR.getResponseHeader('Set-Cookie'));
                 if (response.success == "true") {
                     //navigate to main page. 
-                    $('#navCurrentExpenses').click();
+                    var credmodel = new ZS.Model.Credential();
+                    credmodel.ApplyCredentials(u, p, response.authName, response.authToken);
+                    credmodel.Save().done(function() {
+                        $('#navCurrentExpenses').click();
+                    });
+                    
                 } else {
                     self.elm.append("<p>Wrong user name or password. Try again!</p>");
                 }

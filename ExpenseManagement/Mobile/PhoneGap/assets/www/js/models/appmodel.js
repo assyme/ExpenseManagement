@@ -1,8 +1,8 @@
 var ZS = ZS || {};
 
-ZS.model = ZS.model || {};
+ZS.Model = ZS.Model || {};
 
-ZS.model.expenseCollection = ZS.model.expenseCollection || function () {
+ZS.Model.ExpenseCollection = ZS.Model.ExpenseCollection || function () {
     var self = this;
     var expenses = [];
     var addedExpenseIds = [];
@@ -11,8 +11,17 @@ ZS.model.expenseCollection = ZS.model.expenseCollection || function () {
     self.SaveKey = "expenses";
 
     //constructor
-    var initiliaze = function() {
-        storage = new ZS.Storage.LocalStorage(self.SaveKey);
+    var initiliaze = function () {
+        var str = parseInt(ZS.Common.Options.option.StorageLocation);
+        switch(str) {
+            case 0: storage = new ZS.Storage.LocalStorage(self.SaveKey);
+                break;
+            case 1: storage = new ZS.Storage.FileStorage(self.SaveKey);
+                break;
+            case 2: storage = new ZS.Storage.SqlStore.ExpenseRepository(self.SaveKey);
+                break;
+        }
+        
     };
 
     this.Save = function() {
@@ -29,8 +38,8 @@ ZS.model.expenseCollection = ZS.model.expenseCollection || function () {
                     var e = expArray[i];
                     addExpense(e.Name, e.Amount, e.Category, e.Id);
                 }
-                def.resolveWith(self, [expenses]);
             }
+            def.resolveWith(self, [expenses]);
         });
         return def.promise();
     };

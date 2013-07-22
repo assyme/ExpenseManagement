@@ -16,13 +16,13 @@ ZS.Storage.SqlStore.ExpenseRepository = function (key) {
         //Get Database object.
         database = window.openDatabase(self.key, "1.0", "User Expenses", 5 * 1024 * 1024 /* 5mb*/);
         database.transaction(function (tx) {
-            tx.executeSql("DROP TABLE IF EXISTS  " + self.key);
+            //tx.executeSql("DROP TABLE IF EXISTS  " + self.key);
             tx.executeSql("CREATE TABLE IF NOT EXISTS " + self.key + " (Id unique,Name,Amount,Category,AddedOnDevice)");
         }, function (evt) {
             console.log("error with database");
         }, function () {
             console.log("Database ready");
-            self.Save(addSampleData);
+            //self.Save(addSampleData);
         });
 
     };

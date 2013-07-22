@@ -97,6 +97,6 @@ ZS.Storage.FileStorage = function (key) {
 
     //constructor to initialize this class. 
     (function () {
-        self.Save(addSampleData);
+        //self.Save(addSampleData);
     }(key));
 };

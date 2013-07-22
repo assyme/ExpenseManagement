@@ -11,7 +11,7 @@ ZS.Storage.LocalStorage = function(key) {
     //Constructor
     var initialize = function (k) {
         self.key = k;
-        self.Save(addSampleData); // Remove this code when you dont want to add the dummy data. 
+        //self.Save(addSampleData); // Remove this code when you dont want to add the dummy data. 
     };
 
     this.Read = function() {

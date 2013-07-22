@@ -51,12 +51,9 @@ namespace ExpenseManagement.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return Json(new {success = "true"});
+                return Json(new {success = "true",authName = FormsAuthentication.FormsCookieName ,authToken = Request.Cookies[FormsAuthentication.FormsCookieName]});
             }
-            else
-            {
-                return Json(new {success = "false"});
-            }
+            return Json(new {success = "false"});
         }
 
         //

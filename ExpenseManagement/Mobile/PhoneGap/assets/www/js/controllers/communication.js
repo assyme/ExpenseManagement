@@ -33,7 +33,7 @@ ZS.Communication.UserExpenses = function() {
               type: "POST"
           });
       },
-      GetUserAuthentication : function(user,pwd) {
+      GetUserAuthentication : function(user,pwd,rem) {
           return $.ajax({
               url: rooturl + "Account/MobileLogin",
               type: "POST",
@@ -41,7 +41,7 @@ ZS.Communication.UserExpenses = function() {
               data: {
                   UserName: user,
                   Password: pwd,
-                  RememberMe: false
+                  RememberMe: rem
               },
           });
       }

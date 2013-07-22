@@ -1,19 +1,10 @@
-var PoC = PoC || {};
+var ZS = ZS || {};
+ZS.Common = ZS.Common || {};
 
 var MainApp = function () {
-    var expenses = new ZS.model.expenseCollection();
-    var dac = new LocalStore();
-
-    /* Compiling templates : Is there a better way? */
-    var footerTemplateSource = $('#footerTemplate').html();
-    var footerTemplate = Handlebars.compile(footerTemplateSource);
-
-    var source = $('#template').html();
-    var expenseTemplate = Handlebars.compile(source);
-
-    var newExpenseSource = $('#newExpenseTemplate').html();
-    var newExpenseTemplate = Handlebars.compile(newExpenseSource);
-
+    var expenses;
+    
+    
     // Application Constructor
     this.initialize = function () {
         console.log("binding device ready events");
@@ -27,7 +18,7 @@ var MainApp = function () {
             ZS.Communication.UserExpenses.GetUserExpenses().done(function (data,textStatus,jqXHR) {
                 console.log("data recieved from server");
                 console.log(data);
-                var newExpensesCount = expenses.ProcessNewServerData(data);
+                var newExpensesCount = ZS.Common.Expenses.ProcessNewServerData(data);
                 $('#badgeExpense').html(newExpensesCount);
             }).fail(function (jqXHR,responseText,errorThrown) {
                 console.log("request failed" + responseText);
@@ -42,11 +33,12 @@ var MainApp = function () {
         //dac.Read(expenses);
         //window.navigator.notification.alert("Device Ready");
         console.log("application is ready");
-        
-
+        //Load Commons
+        ZS.Common.Options = new ZS.Model.Options();
+        ZS.Common.Expenses = new ZS.Model.ExpenseCollection();
 
         //Fill device details. 
-        deviceInfo = new DeviceInfo();
+        deviceInfo = new ZS.Model.DeviceInfo();
        
        
         var homeView = new ZS.Views.HomeView();
@@ -54,12 +46,6 @@ var MainApp = function () {
         homeView.Render().done(function() {
             $('div#contents').html(this.el);
         });
-
-        ZS.Communication.UserExpenses.GetUserAuthentication("nothing", "nothing").done(function(resposne) {
-            console.log(resposne);
-        });
-
-
 
         fetchNewDataFromServer();
         $('ul.nav li').on('click', function () {
@@ -77,7 +63,8 @@ var MainApp = function () {
         });
 
         $('li#navCurrentExpenses').on('click', function () {
-            homeView.Render().done(function() {
+            var view = new ZS.Views.HomeView();
+            view.Render().done(function () {
                 $('div#contents').html(this.el);
             });
             fetchNewDataFromServer();
@@ -91,11 +78,21 @@ var MainApp = function () {
 
         $('#navSync').on('click', function () {
             console.log("syncing device");
-            expenses.ResyncPendingData();
-            dac = new LocalStore();
-            dac.Save(expenses).done(function() {
-                $('li#navCurrentExpenses').click();
+            ZS.Common.Expenses.ResyncPendingData();
+            ZS.Common.Expenses.Save().done(function() {
+                $('#navCurrentExpenses').click();
             });
+        });
+
+        $('li#navOptions').on('click', function () {
+            var view = new ZS.Views.Options();
+            $('div#contents').html(view.Render().elm);
         });
     };
 };
+
+window.Handlebars.registerHelper('select', function (value, options) {
+    var $el = $('<select />').html(options.fn(this));
+    $el.find('[value=' + value + ']').attr({ 'selected': 'selected' });
+    return $el.html();
+});

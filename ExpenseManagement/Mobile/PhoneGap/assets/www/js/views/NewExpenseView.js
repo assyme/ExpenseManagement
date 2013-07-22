@@ -15,8 +15,7 @@ ZS.Views.NewExpenseView = function () {
             var name = $('#txtName').val();
             var amount = $('#txtAmount').val();
             var cat = $('#txtCategory').val();
-            var expCollection = new ZS.model.expenseCollection();
-            var pms = expCollection.AddExpense(name, amount, cat);
+            var pms = ZS.Common.Expenses.AddExpense(name, amount, cat);
             pms.done(function() {
                 $('li#navCurrentExpenses').click();
             });
