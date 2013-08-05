@@ -42,14 +42,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MoonAPNS, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OpenSources\Moon-APNS-master\Moon-APNS-master\Application\MoonApns\bin\Debug\MoonAPNS.dll</HintPath>
+      <HintPath>..\packages\MoonDns\MoonAPNS.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OpenSources\Moon-APNS-master\Moon-APNS-master\Application\MoonApns\bin\Debug\NLog.dll</HintPath>
+      <HintPath>..\packages\MoonDns\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
