@@ -24,7 +24,7 @@ ZS.Views.NewExpenseView = function () {
 
     this.Render = function () {
         var dfd = $.Deferred();
-        this.el.html(ZS.Views.NewExpenseView.NewExpenseTemplate());
+        this.el.html(ZS.Templates.newExpenseTemplate());//ZS.Views.NewExpenseView.NewExpenseTemplate());
         dfd.resolveWith(self, []);
         return dfd.promise();
     };
@@ -32,4 +32,4 @@ ZS.Views.NewExpenseView = function () {
     initiliaze();
 };
 
-ZS.Views.NewExpenseView.NewExpenseTemplate = Handlebars.compile($('#newExpenseTemplate').html());
+//ZS.Views.NewExpenseView.NewExpenseTemplate = Handlebars.compile($('#newExpenseTemplate').html());

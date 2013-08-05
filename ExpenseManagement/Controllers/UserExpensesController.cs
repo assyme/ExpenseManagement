@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ExpenseManagement.Models;
+using MoonAPNS;
 
 namespace ExpenseManagement.Controllers
 {
@@ -13,6 +15,16 @@ namespace ExpenseManagement.Controllers
     public class UserExpensesController : Controller
     {
         private ExpenseDBContext db = new ExpenseDBContext();
+
+        //For now just storing it here. Ideally we should have a table for this. 
+        private static Dictionary<String, String> userDeviceToken = new Dictionary<string, String>();
+        private readonly string _p12Filelocation ;
+
+
+        public UserExpensesController()
+        {
+            _p12Filelocation = HttpContext.Server.MapPath("~/Certificate/apn_developer_identity.p12");
+        }
 
         //
         // GET: /UserExpenses/
@@ -54,6 +66,20 @@ namespace ExpenseManagement.Controllers
                 expense.Username = User.Identity.Name;
                 db.Expenses.Add(expense);
                 db.SaveChanges();
+
+                //Notifiy the user now. 
+                if (userDeviceToken.ContainsKey(User.Identity.Name) &&
+                    !string.IsNullOrEmpty(userDeviceToken[User.Identity.Name]))
+                {
+                    //User has not used the mobile version so far. 
+                    var payload = new NotificationPayload(userDeviceToken[expense.Username],
+                                                      "New expense added - " + expense.Name, 1, "default");
+
+                    var push = new PushNotification(true, _p12Filelocation, "1234");
+
+                    push.SendToApple(new List<NotificationPayload>() { payload });
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -119,6 +145,7 @@ namespace ExpenseManagement.Controllers
             return Json(db.Expenses.OrderByDescending(x => x.Id).ToList());
         }
 
+
         [Authorize]
         [HttpPost]
         public JsonResult GetUserExpenses()
@@ -130,6 +157,35 @@ namespace ExpenseManagement.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ActionResult Notify()
+        {
+            var deviceToken = "3f26888d6ceedf027cc2d2387d1809f1b0b46a74cf321eb1c1f89f25f4119ffa";
+            var payload = new NotificationPayload(deviceToken, "You got report", 1, "default");
+            var payload2 = new NotificationPayload(deviceToken, "You got mail", 2, "default");
+            var payload3 = new NotificationPayload(deviceToken, "You got fired", 4, "default");
+            var notificationList = new List<NotificationPayload> {payload,payload2,payload3};
+            
+            var push = new PushNotification(true,_p12Filelocation,"1234");
+            var rejected = push.SendToApple(notificationList);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public JsonResult RegisterDeviceToken(string deviceToken)
+        {
+            if (userDeviceToken.ContainsKey(User.Identity.Name))
+            {
+                // update the key. 
+                userDeviceToken[User.Identity.Name] = deviceToken;
+            }
+            else
+            {
+                userDeviceToken.Add(User.Identity.Name, deviceToken);
+            }
+            return Json(new {success = true});
         }
     }
 }

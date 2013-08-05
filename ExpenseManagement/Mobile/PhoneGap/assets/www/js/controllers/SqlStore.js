@@ -29,6 +29,7 @@ ZS.Storage.SqlStore.ExpenseRepository = function (key) {
 
     self.Save = function (objectToSave) {
         var dfd = $.Deferred();
+        console.log("storing in db");
         //TODO : Check for array types else this will fail. 
         //TODO : See if you can bulk insert. 
         var query = "";
@@ -41,7 +42,7 @@ ZS.Storage.SqlStore.ExpenseRepository = function (key) {
             }
         }, function (evt) {
             //bah. why error first and then success callback. bad cordova bad. 
-            console.log("transaction failed ");
+            console.log("transaction failed " + evt.code);
             dfd.rejectWith(self, [evt]);
         }, function () {
             //success callback

@@ -250,7 +250,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+<<<<<<< .mine
     <Content Include="Certificate\apn_developer_identity.p12" />
+=======
     <Content Include="Mobile\PhoneGap\assets\www\js\lib\handlebars.runtime.js" />
     <Content Include="Mobile\PhoneGap\assets\www\templates.html" />
     <Content Include="Mobile\PhoneGap\assets\www\templates\authTemplate.hbs" />
@@ -259,6 +261,7 @@
     <Content Include="Mobile\PhoneGap\assets\www\templates\footerTemplate.hbs" />
     <Content Include="Mobile\PhoneGap\assets\www\templates\newExpenseTemplate.hbs" />
     <Content Include="Mobile\PhoneGap\assets\www\templates\optionsTemplate.hbs" />
+>>>>>>> .r30
     <None Include="Properties\PublishProfiles\DEV.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Mobile\PhoneGap\assets\www\config.xml" />

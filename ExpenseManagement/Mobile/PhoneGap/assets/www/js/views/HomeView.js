@@ -9,6 +9,8 @@ ZS.Views.HomeView = function () {
     var initialize = function () {
         //Defining a div wrapper for a view to display elements and bind events on. 
         self.el = $('<div/>');
+        ZS.Views.HomeView.ExpenseListTemplate = Handlebars.compile($('#ExpenseListTemplate').html());
+        ZS.Views.HomeView.EmptyExpenseListTemplate = Handlebars.compile($('#EmptyExpenseListTemplate').html());
     };
 
     this.Render = function () {
@@ -17,10 +19,10 @@ ZS.Views.HomeView = function () {
         ZS.Common.Expenses.Load().done(function(exp) {
             //When read is done. 
             if (exp.length) {
-                var renderedText = ZS.Views.HomeView.ExpenseListTemplate(exp);
+                var renderedText = ZS.Views.HomeView.ExpenseListTemplate(exp);//ZS.Templates.ExpenseListTemplate(exp);
                 self.el.html(renderedText);
             } else {
-                self.el.html(ZS.Views.HomeView.EmptyExpenseListTemplate());
+                self.el.html(ZS.Views.HomeView.EmptyExpenseListTemplate());//ZS.Templates.EmptyExpenseListTemplate());
             }
             def.resolveWith(self, [exp]);
         });
@@ -43,5 +45,3 @@ ZS.Views.HomeView = function () {
 };
 
 
-ZS.Views.HomeView.ExpenseListTemplate = Handlebars.compile($('#ExpenseListTemplate').html());
-ZS.Views.HomeView.EmptyExpenseListTemplate = Handlebars.compile($('#EmptyExpenseListTemplate').html());

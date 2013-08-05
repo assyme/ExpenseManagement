@@ -1,0 +1,13 @@
+{{#.}}    
+<div class="well well-small" data="{{Id}}" id="div_expense_{{Id}}">
+	<div class="page-header">
+		<h3>${{Amount}} on <small>{{Name}}:{{Category}}</small>
+			{{#if AddedOnDevice}}
+				<span class="badge badge-success">New</span>
+			{{/if}}
+		</h3>
+	</div>
+	<button type="submit" class="btn btn-success" id="btnSync">Edit</button>
+	<button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
+</div>
+{{/.}}

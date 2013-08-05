@@ -24,6 +24,7 @@ ZS.Storage.FileStorage = function (key) {
     //Public methods. 
     self.Save = function (objectToSave) {
         var dfd = $.Deferred();
+        console.log("storing in file");
         //window.webkitStorageInfo.requestQuota(1, 1024 * 1024, function(granted) { // Had to do this for ripple under chrome. else you dont need this. 
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
             //received a file system here.

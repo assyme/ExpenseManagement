@@ -1,0 +1,18 @@
+<fieldset>
+	<legend>Options</legend>
+	<label>Choose Storage Location:</label>
+	<select id="sltLocalStore">
+		{{#select StorageLocation }}
+			<option value="0">Local Storage</option>
+			<option value="1">File Storage</option>
+			<option value="2">Sql Storage</option>
+		{{/select}}
+		<label>Test Storage</label>
+		<input type="number" id="txtSize" placeholder="data in mb" />
+		<button type="button" class="btn btn-info" id="btnTestStorage">Test</button>
+	</select>
+
+	<p>
+		<button type="submit" class="btn btn-success" id="btnSaveOptions">Save</button>
+	<p>
+</fieldset>

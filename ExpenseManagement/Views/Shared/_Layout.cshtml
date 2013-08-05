@@ -1,54 +1,19 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
     <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - Expense Manager</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+        <title>@ViewBag.Title</title>
+        <meta content='width=device-width, initial-scale=1.0 maximum-scale=1.0' name='viewport'/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        @RenderSection("Styles", false)
+        @RenderSection("MetaContent", false)
     </head>
     <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Expense Manager", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - ZS Associates</p>
-                </div>
-            </div>
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/applicationScripts")
-        @RenderSection("scripts", required: false)
-        <script type="text/javascript" id="GlobalConfigurationScript">
-             config = {
-                baseUrl : "@Request.Url.Host"
-            };
-        </script>
+        @RenderBody()        
+        <!-- scripts -->
+        @RenderSection("Scripts", false)
     </body>
 </html>

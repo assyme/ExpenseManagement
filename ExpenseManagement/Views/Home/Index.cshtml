@@ -1,45 +1,92 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model ExpenseManagement.Controllers.HomeController
+
+@{
+    ViewBag.Title = "Expense Management";
 }
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+
+@section MetaContent
+{
+    <link rel="icon" type="image/png" href="~/favicon.ico" />
+}
+
+@section Styles {
+    @{
+        <link href="~/Mobile/PhoneGap/assets/www/css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="~/Mobile/PhoneGap/assets/www/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Mobile/PhoneGap/assets/www/css/main.css" rel="stylesheet" />
+    }
+}
+
+<div id="wrap">
+    <div class="container-fluid">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="#">Expense Management</a>
+                <ul class="nav">
+                    <li id="navCurrentExpenses" class="active"><a href="#">My Expenses</a></li>
+                    <li id="navNewExpense"><a href="#"><i class="icon-plus"></i>Expense</a></li>
+                    <li id="navSync"><a href="#"><span id="badgeExpense" class="badge badge-success"></span>Sync <i id="wifiStatus" class=""></i></a></li>
+                    <li id="navAuth"><a href="#">Log in</a></li>
+                    <li id="navOptions"><a href="#">Options</a></li>
+                    <li id="navErrors"><a href="#">Errors</a></li>
+
+                </ul>
+            </div>
         </div>
-    </section>
+
+        <div class="row-fluid">
+            <div class="span12" id="MainContent">
+                <div id="contents">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="footer">
+    <div class="container">
+        Footer
+    </div>
+</div>
+
+<div id="partials"></div>
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/lib/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/lib/handlebars.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/index.js"></script>
+
+
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/controllers/store.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/controllers/filestore.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/controllers/SqlStore.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/controllers/communication.js"></script>
+
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/models/appmodel.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/models/optionsmodel.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/models/device.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/models/credentials.js"></script>
+
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/templates.js"></script>
+
+    <!--Add views after models -->
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/views/AuthView.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/views/HomeView.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/views/NewExpenseView.js"></script>
+    <script type="text/javascript" src="~/Mobile/PhoneGap/assets/www/js/views/OptionsView.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        //adding template content in html
+        $(function () {
+            $("#partials").load("../Mobile/PhoneGap/assets/www/templates.html");
+        });
+        console.log("Initializing application");
+        ZS.MainApp.initialize();
+    </script>
+        
 }
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
-
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
-
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>

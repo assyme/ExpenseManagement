@@ -1,0 +1,71 @@
+    <script id="newExpenseTemplate" type="text/x-handlebars-template">
+        <fieldset class="text-center">
+            <legend>Add a new expense</legend>
+            <label>Spent on:</label>
+            <input type="text" placeholder="Where did the money go?" id="txtName">
+            <label>Amount :</label>
+            <input type="number" placeholder="how much" id="txtAmount">
+            <label>Category :</label>
+            <input type="text" placeholder="Category.." id="txtCategory">
+            <p>
+                <button type="submit" class="btn btn-success" id="btnSave">Save</button>
+            <p>
+        </fieldset>
+    </script>
+
+    <script id="ExpenseListTemplate" type="text/x-handlebars-template">
+        {{#.}}    
+        <div class="well well-small" data="{{Id}}" id="div_expense_{{Id}}">
+            <div class="page-header">
+
+                <h3>${{Amount}} on <small>{{Name}}:{{Category}}</small> {{#if AddedOnDevice}} <span class="badge badge-success">New</span>
+                {{/if}} </h1>
+            </div>
+            <button type="submit" class="btn btn-success" id="btnSync">Edit</button>
+            <button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
+        </div>
+        {{/.}}
+    </script>
+    <script id="EmptyExpenseListTemplate" type="text/x-handlebars-template">
+        <div class="text-center"><span class="label label-info">No expenses added yet. Start adding new expenses!</span></div>
+    </script>
+
+    <script id="footerTemplate" type="text/x-handlebars-template">
+        <div>
+            <p>Connection type : {{Connection}}</p>
+        <div>
+    </script>
+
+    <script id="authTemplate" type="text/x-handlebars-template">
+        <form class="form-signin" action="#">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input id='txtUsername' class="input-block-level" type="text" placeholder="user name" value="{{UserName}}" />
+            <input id='txtPassword' type='password' class="input-block-level" placeholder="password" />
+            <label class="checkbox">
+                <input type="checkbox" value="remember" id="cbRemember" />
+                Remember Me
+            </label>
+            <button class="btn btn-large btn-primary" id="btnLogin" type="button">Sign in</button>
+        </form>
+    </script>
+
+    <script id="optionsTemplate" type="text/x-handlebars-template">
+        <fieldset>
+            <legend>Options</legend>
+            <label>Choose Storage Location:</label>
+            <select id="sltLocalStore">
+                {{#select StorageLocation }}
+                <option value="0">Local Storage</option>
+                <option value="1">File Storage</option>
+                <option value="2">Sql Storage</option>
+                {{/select}}
+                <label>Test Storage</label>
+                <input type="number" id="txtSize" placeholder="data in mb" />
+                <button type="button" class="btn btn-info" id="btnTestStorage">Test</button>
+            </select>
+
+            <p>
+                <button type="submit" class="btn btn-success" id="btnSaveOptions">Save</button>
+            <p>
+        </fieldset>
+    </script>

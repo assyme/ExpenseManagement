@@ -18,9 +18,29 @@ ZS.Model.Credential = function() {
         Load: function() {
             //Load from data store
             var dfd = $.Deferred();
-            self.store.Read().done(function(data) {
-                self.creds = new creds(data.UserName, data.Password, data.CookieName, data.CookieToken);
-                $.resolveWith(self, [self.creds]);
+            self.store.Read().done(function (data) {
+                if (data == null) {
+                    self.creds = new creds("", "", "", "");
+                    dfd.resolveWith(self, [self.creds]);
+                } else {
+                    if (typeof window.Keychain != "undefined") {
+                        console.log("Get from keychain");
+                        var kc = new window.Keychain();
+                        kc.getForKey(function (val) {
+                            console.log("received from keychain");
+                            self.creds = new creds(data.UserName, val, data.CookieName, data.CookieToken);
+                            dfd.resolveWith(self, [self.creds]);
+                        }, function(error) {
+                            alert(error);
+                            dfd.reject();
+                        }, data.UserName, "splitexpense");
+                    } else {
+                        self.creds = new creds(data.UserName, data.Password, data.CookieName, data.CookieToken);
+                        dfd.resolveWith(self, [self.creds]);
+                    }
+                    
+                }
+                
             });
 
             return dfd.promise();
@@ -28,9 +48,25 @@ ZS.Model.Credential = function() {
         Save : function() {
             //Save to a data store
             var dfd = $.Deferred();
-            self.store.Save(self.creds).done(function() {
-                dfd.resolveWith(this, [self.creds]);
-            });
+            var encryptedCred = self.creds;
+            if (typeof window.Keychain != "undefined") {
+                var kc = new window.Keychain();
+                kc.setForKey(function() {
+                    console.log("success for keychain");
+                    encryptedCred.Password = "Haha";
+                    self.store.Save(encryptedCred).done(function() {
+                        dfd.resolveWith(this, [self.creds]);
+                    });
+                }, function(error) {
+                    alert(error);
+                    dfd.reject();
+                }, encryptedCred.UserName, "splitexpense", encryptedCred.Password);
+            } else {
+                //save normally 
+                self.store.Save(encryptedCred).done(function () {
+                    dfd.resolveWith(this, [self.creds]);
+                });
+            }
             return dfd.promise();
         },
         ApplyCredentials : function(u, p, n, t) {

@@ -19,7 +19,7 @@
 -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         id        = "zs.javelin.expenseManager"
-        version   = "3.0.0">
+        version   = "4.0.0">
     <name>Expense Manager</name>
 
     <description>
@@ -43,7 +43,10 @@
       <preference name="InAppBrowserStorageEnabled" value="true" />
       <preference name="disallowOverscroll" value="true" />
     -->
-
+  <feature name="debug-server" required="true">
+    <param name="domain" value="http://debug.phonegap.com"/>
+    <param name="key" value="apalekar"/>
+  </feature>
     <feature name="App">
       <param name="android-package" value="org.apache.cordova.App"/>
     </feature>

@@ -24,7 +24,7 @@ ZS.Storage.LocalStorage = function(key) {
 
     this.Save = function(objectToSave) {
         var deferred = $.Deferred();
-        console.log("Saving in database");
+        console.log("Saving in local");
         window.localStorage.setItem(self.key, JSON.stringify(objectToSave));
         deferred.resolveWith(self, [objectToSave]);
         return deferred.promise();
