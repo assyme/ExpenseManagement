@@ -18,12 +18,12 @@ namespace ExpenseManagement.Controllers
 
         //For now just storing it here. Ideally we should have a table for this. 
         private static Dictionary<String, String> userDeviceToken = new Dictionary<string, String>();
-        private readonly string _p12Filelocation ;
+        private string _p12Filelocation ;
 
 
         public UserExpensesController()
         {
-            _p12Filelocation = HttpContext.Server.MapPath("~/Certificate/apn_developer_identity.p12");
+            
         }
 
         //
@@ -71,6 +71,7 @@ namespace ExpenseManagement.Controllers
                 if (userDeviceToken.ContainsKey(User.Identity.Name) &&
                     !string.IsNullOrEmpty(userDeviceToken[User.Identity.Name]))
                 {
+                    _p12Filelocation = HttpContext.Server.MapPath("~/Certificate/apn_developer_identity.p12");
                     //User has not used the mobile version so far. 
                     var payload = new NotificationPayload(userDeviceToken[expense.Username],
                                                       "New expense added - " + expense.Name, 1, "default");
@@ -161,11 +162,11 @@ namespace ExpenseManagement.Controllers
 
         public ActionResult Notify()
         {
+            _p12Filelocation = HttpContext.Server.MapPath("~/Certificate/apn_developer_identity.p12");
             var deviceToken = "3f26888d6ceedf027cc2d2387d1809f1b0b46a74cf321eb1c1f89f25f4119ffa";
             var payload = new NotificationPayload(deviceToken, "You got report", 1, "default");
-            var payload2 = new NotificationPayload(deviceToken, "You got mail", 2, "default");
-            var payload3 = new NotificationPayload(deviceToken, "You got fired", 4, "default");
-            var notificationList = new List<NotificationPayload> {payload,payload2,payload3};
+            
+            var notificationList = new List<NotificationPayload> {payload};
             
             var push = new PushNotification(true,_p12Filelocation,"1234");
             var rejected = push.SendToApple(notificationList);
